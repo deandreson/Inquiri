@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="card-body">
+        <h5 class="card-title">Resultados por questões</h5>
+    </div>
+    <div class="row  row-cols-md-2 g-3">
+        {% for pergu in perguntas %}
+            <div class="card-body">
+                <div class="card">
+                    <div class="card-header text-end" >
+                        <a  href="{{ url_for('editar',id_pergunta=pergu.id_pergunta ) }}"   >
+                            <i class="material-icons" style="font-size:36px;color:red">launch</i>
+                        </a>
+                        <a  href="{{ url_for('graficos',id_pergunta=pergu.id_pergunta ) }}"    >
+                            <span class="material-icons" style="font-size:36px;color:red">insights</span>
+                        </a>
+                    </div>
+
+                    <div class="card-body" >
+                        <h5 class="card-title">{{ pergu.pergunta  }}
+                            <span class="badge badge-primary badge-pill">{{ topicos[pergu.id_topico].nomeTopico}}</span>
+                        </h5>
+                        <p class="card-text">
+                            <div class="list-group">
+                                {% for pos in range(4) %}
+                                    <div class="list-group" >
+                                        {% if pergu.resposta[1][pergu.resposta[0][0]]==pergu.resposta[1][pos] %}
+                                            <a  class="list-group-item list-group-item-action" style="color:green">{{ pergu.resposta[1][pos] }}
+                                                <span class="badge badge-primary badge-pill" >total de Acertos: {{pergu.qtdResposta[pergu.resposta[0][0]] }}</span>
+                                            </a>
+                                        {%else%}
+                                            <a  class="list-group-item list-group-item-action" >{{ pergu.resposta[1][pos] }}
+                                                <span class="badge badge-danger" )>total de erros: {{ pergu.qtdResposta[pos] }}</span>
+                                            </a>
+                                        {%endif%}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </p>
+                        <p class="card-text"><small class="text-muted">total de respostas {{ pergu.qtdResposta[0]+pergu.qtdResposta[1]+pergu.qtdResposta[2]+pergu.qtdResposta[3] }}</small> </p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
