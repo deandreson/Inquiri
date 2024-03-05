@@ -1,0 +1,111 @@
+{% extends 'base.html' %} {% block content %}
+<div class="card-body  hover-div">
+    <div class="card-body hover-div">
+        <h5 class="card-title">Crei tópicos, filtre questões por tópicos para editar ou ver resultados</h5>
+
+    </div>
+    <div class="card-body ">
+        <form method="POST">
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div class="card hover-div">
+                    <div class="card-body">
+                        <label for="title">Crie um novo tópico </label>
+                        <input type="text" name="nomeTopico" placeholder="Novo nome de um novo tópico" class="form-control" value="{{ request.form['nomeTopico'] }}">
+                        </input>
+                    </div>
+                    <div class="card-body">
+                        <button type="submit" class="btn btn-primary">Criar Novo</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div>
+
+        <form method="POST" id="form-id">
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                {% for topi in topicos[0] %}
+                <div class="card-body col ">
+                    <div class="card hover-div">
+                        <div class="card-body list-group-item-action">
+                            {% if topicos[3][topi.id_topico] %}
+                            <input title="Filtrar por tópico" type="checkbox" class="form-check-input" id="{{topi.id_topico}}" checked autocomplete="off" name="{{topi.id_topico}}" onclick="document.getElementById('form-id').submit();" value="{{ request.form['{{topi.id_topico}}'] }}">
+                            <label class="form-check-label" for="{{topi.id_topico}}">
+                                <h5 class="card-title">{{ topi.nomeTopico }}</h5>
+                                <p>
+                                    <small class="text-muted">total de perguntas cadastradas
+                                                    <span class="badge bg-success badge-pill">{{ topicos[1][topi.id_topico]}}</span>
+                                                </small>
+                                </p>
+                            </label>
+                            </input>
+                            {% else %}
+                            <input type="checkbox" class="form-check-input" id="{{topi.id_topico}}" name="{{topi.id_topico}}" onclick="document.getElementById('form-id').submit();" value="{{ request.form['{{topi.id_topico}}'] }}">
+                            <label class="form-check-label" for="{{topi.id_topico}}">
+                                <h5 class="card-title">{{ topi.nomeTopico }}</h5>
+                                <p>
+                                    <small class="text-muted">total de perguntas cadastradas
+                                                    <span class="badge bg-success badge-pill">{{ topicos[1][topi.id_topico]}}</span>
+                                                </small>
+                                </p>
+                            </label>
+                            </input>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </form>
+
+
+        <div class="card-group ">
+            {% for pergu in topicos[2] %} {%if topicos[3][pergu.id_topico]%}
+            <div class="card-body">
+                <div class="card">
+                    <div class="card-header text-end">
+                        <a title="Editar pergunta" href="{{ url_for('editar',id_pergunta=pergu.id_pergunta ) }}">
+                            <i class="material-icons" style="font-size:36px;color:red">launch</i>
+                        </a>
+                        <a title="Visulizar Gráfico" href="{{ url_for('graficos',id_pergunta=pergu.id_pergunta ) }}">
+                            <span class="material-icons " style="font-size:36px;color:red">insights</span>
+                        </a>
+                    </div>
+                    <div class="card-body  hover-div">
+                        <h5 class="card-title">{{ pergu.pergunta  }}
+                                <span title="Tópico da pergunta" class="badge bg-danger badge-primary badge-pill"> {{ topicos[0][pergu.id_topico].nomeTopico}}</span>
+                                {% if pergu.ativa %}
+                                    <a title="Pergunta Ativa" >
+                                        <span class="badge bg-danger badge-primary badge-pill">Ativa</span>
+                                    </a>
+                                {% else %}
+                                    <a title="Pergunta Inativa">
+                                        <span class="badge bg-warning ">Inativa</span>
+                                    </a>
+                                {% endif %}
+                            </h5>
+                        <span class="material-symbols-outlined"></span>
+
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            {% for resposta_ind in pergu.resposta[1] %}
+                            <div class="card-body ">
+                                <div class="card-body hover-div ">
+                                    <li class="nav-item">
+                                        <a title="Alternativa da pergunta">{{ resposta_ind }}
+                                                    
+                                                </a>
+                                    </li>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </ul>
+
+                        <p class="card-text"><small class="text-muted">total de respostas {{ pergu.qtdResposta[0]+pergu.qtdResposta[1]+pergu.qtdResposta[2]+pergu.qtdResposta[3] }}</small> </p>
+                    </div>
+                </div>
+            </div>
+            {% endif %} {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
