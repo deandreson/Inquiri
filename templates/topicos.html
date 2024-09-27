@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block title %}Inserir Matéria{% endblock %}
+
+{% block content %}
+  <h1 class="card-body hover-div " >Novo tópico
+    <div class="card-body ">
+        <span id="fechar" data-name="div-topico-hover" class="btn btn-outline-info" onclick="expandirDiv(this)">
+            +
+        </span>
+    </div>
+  </h1>
+  <!-- Seu formulário HTML -->
+  <div class="card-body hover-div div-display" id="div-topico-hover">
+  
+    <form id="form-inserir-topico-pag" method="POST">            
+            <div class="card-body ">          
+                <p><label for="nm_topico">Nome da topicos:</label></p>
+                
+                <input class="btn hover-div" type="text" id="nm_topico" name="nm_topico" required>
+            </div>
+            
+
+            <div class="card-body ">
+                <p><label for="id_materia">Selecione a Matéria:</label></p>
+                <select  id="id_materia"  required name="id_materia" value="{{ request.form['id_materia'] }}" class="hover-div form-control-lg btn hover-div">
+                    {% for materia in materias %}
+                        <option value="{{materia.id_materia}}">{{materia.nm_materia}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="card-body">
+                <button type="submit" class="btn btn-outline-info">Inserir</button>
+            </div>        
+    </form>
+    <div class="card-body">
+        <div  id="div_msg_topico" class="div-display" >
+            <div class="alert alert-success " role="alert">
+                    Inserido com sucesso.
+            </div>
+        </div>
+      </div>
+  </div>
+  {% if materias|length == 0 %}
+    <div class="card-body">
+        <div  id="div_msg_topico">
+            <div class="alert alert-danger " role="alert">
+                   Não há matérias cadastradas.
+            </div>
+        </div>
+    </div>
+  {%endif%}
+  <!-- Div para exibir a mensagem de retorno -->
+
+  <div id="mensagem_topico" class="hover-div" >
+   </div>
+
+  
+  <!--Esta é a listagem de Tópicos--->
+    <div class="card-body hover-div ">
+        <h1>Tópicos:</h1>
+        <div class="card-body ">
+            <span id="fecharTopicos" data-name="exibir-lista-topicos" class="btn btn-outline-info" onclick="expandirDiv(this)">
+                +
+            </span>
+        </div>
+    </div>
+    <div class="card-body hover-div div-display" id="exibir-lista-topicos" >
+            <div>
+                <div class="row row-cols-1 row-cols-md-4 g-4 " id="lista-topicos-ativos">
+                </div>
+            </div>
+            <div class="card-body">
+                Sem perguntas cadastradas 
+                <span id="fecharListaInativas" data-name="exibir-lista-perguntas-inativos" class="btn btn-outline-info" onclick="expandirDiv(this)">
+                    +
+                </span>
+            </div>
+            <div class="card-body div-display" id="exibir-lista-perguntas-inativos">
+                <div class="row row-cols-1 row-cols-md-4 g-4 " id="lista-topicos-inativos">
+                </div>
+            </div>
+    </div>
+  <!--Esta é a listagem de Perguntas--->
+  <div class="card-body hover-div ">
+    <h1>Perguntas:</h1>
+    <div class="card-body ">
+            <span id="fecharPerguntas" data-name="exibir-lista-perguntas" class="btn btn-outline-info" onclick="expandirDiv(this)">
+                +
+            </span>
+        </div>
+    </div>
+   <div class="card-body div-display" id="exibir-lista-perguntas"  >
+        <div class="row  row-cols-md-1  card-body" id="lista-perguntas-topicos">
+
+        </div>
+   </div>
+{% endblock %}

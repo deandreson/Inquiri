@@ -1,0 +1,66 @@
+{% extends 'base.html' %} {% block content %}
+<!--Esta é a listagem de Tópicos--->
+<div class="card-body hover-div ">
+    <h1>Tópicos:</h1>
+    <div class="card-body ">
+        <span id="fecharTopicos" data-name="exibir-lista-topicos" title="Clique para expandir e filtrar por tópicos"
+            class="btn btn-outline-info" onclick="expandirDiv(this)">
+            +
+        </span>
+    </div>
+</div>
+<div class="card-body hover-div div-display" id="exibir-lista-topicos">
+    <div>
+        <div class="row row-cols-1 row-cols-md-4 g-4 " id="lista-topicos-ativos">
+        </div>
+    </div>
+    <div class="card-body">
+        Sem perguntas cadastradas
+        <span id="fecharListaInativas" title="Visualize os tópicos sem perguntas"
+            data-name="exibir-lista-perguntas-inativos" class="btn btn-outline-info" onclick="expandirDiv(this)">
+            +
+        </span>
+    </div>
+    <div class="card-body div-display" id="exibir-lista-perguntas-inativos">
+        <div class="row row-cols-1 row-cols-md-4 g-4 " id="lista-topicos-inativos">
+        </div>
+    </div>
+</div>
+
+
+<div class="card-body hover-div">
+    <h3 class="card-title">Questões ordenadas pelo menor número de acertos</h3>
+    <div id="mensagem_index" class="card-body">
+    </div>
+</div>
+<div class="card-body hover-div">
+    <div class="row  row-cols-md-2 g-3">
+        {% for pergunta in perguntas %}
+        <div class="card-body" id="pergunta_{{pergunta.id_pergunta}}"
+            data-name="pergu_{{pergunta.id_topico }}-{{pergunta.nm_topico}}">
+            <div class="card hover-div">
+                <div class="card-body">
+                    <div class="div-display" id="div_display_{{pergunta.id_pergunta}}">
+                        <div display="none" class="spinner-border text-primary " role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                    <div class="card-title ">{{ pergunta.pergunta }}
+                        <span class="badge badge-primary bg-danger">{{ pergunta.nm_materia }}</span>
+                        <span class="badge badge-primary bg-danger">{{ pergunta.nm_topico}}</span>
+                        {% for alternativa in pergunta.alternativas %}
+                        <div class=" list-group card-body based-on-text">
+                            <button title="Selecione a alternativa correta" onclick="escolhaResposta(this)"
+                                class="btn btn-outline-muda-cor" id="{{ pergunta.id_pergunta }}"
+                                name="{{ alternativa.id_alternativa }}">{{ alternativa.alternativa }}</button>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

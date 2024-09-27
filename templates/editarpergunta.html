@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <strong><p><p>
+            <label for="title">Tem suporte para escrita Lattex, consulte mais detalhes no site da Katex. </label>
+        </p>
+        <p>
+            <label for="title"> Exemplos: Observação: "\(" juntos. Assim "\ (" ax^2 + bx + c = 0 "\ )" </label>
+        </p>
+        <p>
+            <label for="title">Substitua o símbolo \cifrão por $ : \cifrão\cifrao x = {-b \pm \sqrt{b^2-4ac} \over 2ax \cifrão\cifrao  </label>
+        </p> </p>
+    </strong>
+</div>
+  
+        
+        <h1 class="card-body hover-div">{% block title %} Altere a pergunta{% endblock %}</h1>
+        <div class="card-body hover-div">
+        <form method="post" id="atualizar_pergunta_forms" >
+            <div class="card-body ">                
+                    <label id="{{pergunta.id_pergunta}}" for="{{pergunta.id_pergunta}}">Altere a Pergunta:</label>
+                    <textarea class="form-control hover-div" id="{{pergunta.id_pergunta}}"  rows="5" name="pergunta_{{pergunta.id_pergunta}}" class="form-control" >{{pergunta.pergunta}} </textarea>
+            </div>         
+                
+                
+            <!-- div class="card-body ">
+                <label for="id_topico">Selecione o Tópico:</label>
+                <select id="id_topico"  name="id_topico" value="{{ request.form['id_topico'] }}" class="form-control hover-div form-control-lg">
+                    {% for topico in topicos %}
+                        
+                        <option value="{{topico.id_topico}}">{{topico.nm_topico}}</option>
+                    {% endfor %}
+                </select>
+            </div -->
+            <div class="card-body ">
+                <label for="radioEscolha">Informe as respostas e selecione a correta:</label>
+                {% for alternativa in alternativas %}
+                    <div  class="card-body">
+                        <div  class="card-body hover-div ">
+                            <div class="row">
+                                <div class="col-1">
+                                    {%if alternativa.correta %}
+                                        <input checked type="radio" value="{{alternativa.id_alternativa}}" id="{{alternativa.id_alternativa}}" name="radioEscolha"    >
+                                    {%else%}
+                                        <input type="radio" value="{{alternativa.id_alternativa}}" id="{{alternativa.id_alternativa}}" name="radioEscolha"    >
+                                    {%endif%}
+                        
+                                </div>
+                                <div class="col-11 ">
+                                        <textarea name="{{alternativa.id_alternativa}}" placeholder="Insira a resposta"  for="{{alternativa.id_alternativa}}" class="form-control form-control-lg" rows="7" >{{alternativa.alternativa}}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                {% endfor %}
+            </div>
+            <div class="card-body">
+                <button type="submit" class="btn btn-primary">Alterar</button>
+            </div>
+        </form>
+    </div>
+    <div class="card-body">
+        <div  id="div_msg_alterado" class="div-display" >
+            <div class="alert alert-success " role="alert">
+                    Alterado com sucesso.
+            </div>
+        </div>
+      </div>
+{% endblock %}

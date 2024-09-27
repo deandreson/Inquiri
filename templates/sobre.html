@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="card-body">
+    <div class="row row-cols-1 row-cols-md-2 g-2">
+       
+        <div class="card-body col " >
+            <div class="card-body hover-div hover-mais ">
+                <img src="{{url_for('static', filename='ideia.png')}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                <h5 class="card-title">Inquiri</h5>
+                <p class="card-text">É um sistema de cadastro de perguntas e de respostas, atrelados a diversos temas, definidos pelo usuário.</p>
+                </div>
+            </div>
+        </div>
+        <div class="card-body col" >   
+            <div class="card-body hover-div hover-mais">
+                <img src="{{url_for('static', filename='circulo.png')}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                <h5 class="card-title">Acompanhe seu desempenho</h5>
+                <p class="card-text">Depois de cadastrar uma pergunta e responder, o usuário pode visualizar os resultados.</p>
+                </div>
+            </div>
+        </div>
+        <div class="card-body col" >
+            <div class="card-body hover-div hover-mais">
+                <img src="{{url_for('static', filename='tarefas.png')}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Cadastre suas questões</h5>
+                    <p class="card-text"> Para usar o Inquiri, basta cadastrar as perguntas e tópicos.</p>
+                </div>
+            </div>
+        </div>
+        <div class="card-body col" >
+            <div class="card-body hover-div hover-mais">
+                <img src="{{url_for('static', filename='notas.png')}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                <h5 class="card-title">Estude mais</h5>
+                <p class="card-text">O objetivo do sistema é incetivar a criar, estudar e assim, aprimorar os estudos.</p>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+    
+
+
+{% endblock %}

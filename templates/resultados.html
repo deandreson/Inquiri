@@ -1,0 +1,57 @@
+{% extends 'base.html' %} {% block content %}
+<div class="card-body  ">
+    <div class="card-body">
+        <h1 class="card-body hover-div">Resultados das Questões</h5>
+    </div>
+    <div id="mensagem_index" class="card-body">
+
+    </div>
+    <div class="row  row-cols-md-2 g-3">
+        {% for pergunta in perguntas %}
+
+        <div class="card-body" id="pergunta_{{pergunta.id_pergunta}}">
+            <div class="card-header text-end">
+                <a title="Editar pergunta" href="{{url_for('editarpergunta',id_pergunta=pergunta.id_pergunta)}}">
+                    <i class="material-icons" style="font-size:36px;color:red">launch</i>
+                </a>
+                <a title="Visualizar gráfico" href="{{url_for('grafico',id_pergunta=pergunta.id_pergunta)}}">
+                    <span class="material-icons" style="font-size:36px;color:red">insights</span>
+                </a>
+            </div>
+            <div class="card hover-div">
+                <div class="card-body">
+
+                    <div class="card-title ">{{pergunta.id_pergunta}}-{{ pergunta.pergunta }}
+                        <span class="badge badge-primary bg-danger">{{ pergunta.nm_materia }}</span>
+                        <span class="badge badge-primary bg-danger">{{ pergunta.nm_topico}}</span>
+                        {% set contador = 0 %}
+                        {% for alternativa in pergunta.alternativas %}
+                        <div class="card-body  hover-div">
+                            <div class=" card-body ">
+                                {% if alternativa.correta %}
+                                <a style="color:#61e98f">{{ alternativa.alternativa }}</a>
+                                {%else%}
+                                <a style="color:#dc3545">{{ alternativa.alternativa }}</a>
+                                {%endif%}
+                            </div>
+                            {% if alternativa.correta %}
+                            <span class="badge badge-primary bg-success"> total de acertos:
+                                {{alternativa.total_resposta_alternativa}}</span>
+                            {%else%}
+                            <span class="badge badge-primary bg-danger"> total de erros:
+                                {{alternativa.total_resposta_alternativa}}</span>
+                            {%endif%}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <!-- <p class="card-text"><span  class="text-muted">total respostas -{{ contador}} </span></p> -->
+                </div>
+
+
+            </div>
+
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

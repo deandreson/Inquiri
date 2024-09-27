@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block title %}Inserir Matéria{% endblock %}
+
+{% block content %}
+<h1 class="card-body hover-div">Matérias</h1>
+<!-- Seu formulário HTML -->
+<!-- Div que servirá como a "janela" de Matérias -->
+<div id="janela-materia" class="card-body hover-div">
+    <div class="card-body hover-div">
+        <form id="form-inserir-materia" method="POST">
+            <div class="card-body ">
+                <span id="fechar" class="btn btn-outline-info"  onclick="fecharJanelaMateria()">X</span>
+            </div>
+            <div class="card-body ">
+                <p><label for="nm_materia">Nome da Matéria:</label></p>
+    
+                <input class="btn hover-div" type="text" id="nm_materia" name="nm_materia" required>
+            </div>
+            <div class="card-body ">
+                <p><label for="id_usuario">ID do Usuário:</label></p>
+                <input class="btn hover-div" type="text" id="id_usuario" name="id_usuario" required>
+            </div>
+            <div class="card-body">
+                <button type="submit" class="btn btn-outline-info">Inserir</button>
+            </div>
+    
+        </form>
+    </div>
+    <!-- Div para exibir a mensagem de retorno -->
+    <div class="card-body">
+        <div id="div_msg_materia" class="div-display">
+            <div class="alert alert-success " role="alert">
+                Inserido com sucesso.
+            </div>
+        </div>
+    </div>
+  </div>
+<!-- Div que servirá como a "janela" -->
+<div id="janela" class="card-body hover-div">
+    <div class="card-body hover-div">
+        <form id="form-inserir-topico" method="POST">
+            <div class="card-body ">
+                <span id="fechar" class="btn btn-outline-info"  onclick="fecharJanela()">X</span>
+            </div>
+            <div class="card-body ">          
+                <p><label for="nm_topico">Nome do novo tópico:</label></p>
+                
+                <input class="btn hover-div" type="text" id="nm_topico" name="nm_topico" required>
+            </div>
+
+            <div class="card-body ">                
+                <select  id="id_materia"  name="id_materia" class="hover-div form-control-lg btn hover-div">
+                    <option></option>
+                </select>
+            </div>
+            <div class="card-body">
+                <button type="submit" class="btn btn-outline-info">Inserir</button>
+            </div>        
+            
+        </form>
+    </div>
+    <div class="card-body">
+        <div  id="div_msg_topico" class="div-display" >
+            <div class="alert alert-success " role="alert">
+                    Inserido com sucesso.
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="mensagem_materia" class="hover-div">
+    
+    <div class="row row-cols-1 row-cols-md-2 g-4 card-body" id="lista-materia">
+        
+    </div>    
+</div>
+
+</div>
+{% endblock %}
