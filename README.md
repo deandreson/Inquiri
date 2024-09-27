@@ -9,7 +9,7 @@ Comandos:
 	- Para instalar as bibliotecas: pip install -r requirements.txt
 Assim, o próximo passo é configurar as variáveis do Flask
 	- Na pasta do projeto, então
-    - #   export FLASK_ENV=development 
-    - #   export FLASK_APP=Inquiri
+    - export FLASK_ENV=development 
+    - export FLASK_APP=Inquiri
 E por fim, para executar a aplicação:
 		- flask run
